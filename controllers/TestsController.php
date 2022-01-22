@@ -34,8 +34,98 @@ class TestsController extends \yii\web\Controller
         if ($bool){
             return $this->render('xmlsavetest_good', ['filename' => $filename]);
         } 
-        return $this->render('xmlsavetest_error', ['filename' => $filename]);
+        return $this->render('error', ['filename' => $filename]);
+    }
+
+    public function actionXmlreadtest(){
+        $exec = '<html>
+                    <head>
+                        <title>Test Page</title>
+                    </head>
+                    <body>
+                        
+                        <p>Its a good xml!</p>
+                        <table>
+                        <tr>
+                        <td>1 column</td>
+                        </tr>
+                        <tr>
+                        <td>2 column</td>
+                        </tr>
+                        <tr>
+                        <td>3 column</td>
+                        </tr>
+                        <tr>
+                        <td>1 column</td>
+                        </tr>
+                        <tr>
+                        <td>2 column</td>
+                        </tr>
+                        <tr>
+                        <td>3 column</td>
+                        </tr>
+                        </table>
+                    </body>
+                
+                </html>';
+        $xml = XmlUse::read($exec);
+        if ($xml){
+            return $this->render('xmlreadtest_good', ['xml' => $xml]);
+        } 
+        return $this->render('error');
+    }
+    public function actionXmlreadtest2(){
+        $filePath = __DIR__."/../testdatas/xmltest1Top250.html";
+        $xml = XmlUse::readForFile($filePath);
+        if ($xml){
+            return $this->render('xmlreadtest_good', ['xml' => $xml]);
+        } 
+        return $this->render('error');
+    }
+    public function actionFindtable(){
+        $filePath = __DIR__."/../testdatas/xmltest1Top250.html";
+        $xml = XmlUse::findFirstTableInTheXmlFile($filePath);
+        if ($xml){
+            return $this->render('xmlreadtest_good', ['xml' => $xml]);
+        } 
+        return $this->render('error');
+    }
+    public function actionFindtable2(){
+        $exec = '<html>
+        <head>
+            <title>Test Page</title>
+        </head>
+        <body>
+            <p>Its a good xml!</p>
+            <table>
+            <tr>
+            <td>1 column</td>
+            </tr>
+            <tr>
+            <td>2 column</td>
+            </tr>
+            <tr>
+            <td>3 column</td>
+            </tr>
+            <tr>
+            <td>1 column</td>
+            </tr>
+            <tr>
+            <td>2 column</td>
+            </tr>
+            <tr>
+            <td>3 column</td>
+            </tr>
+            </table>
+        </body>
+    </html>';
+        $xml = XmlUse::findFirstTableInTheString($exec);
+        if ($xml){
+            return $this->render('xmlreadtest_good', ['xml' => $xml]);
+        } 
+        return $this->render('error');
     }
     
+
 }
 ?>

@@ -1,5 +1,6 @@
 <?php
 namespace app\classes;
+use SimpleXMLElement;
 class XmlUse
 {
     const DIR_XML = __DIR__."/../xmls/";
@@ -20,6 +21,33 @@ class XmlUse
         return self::saveFile($fileName, $exec);
 
     }
+    public static function read($exec) {
+        $xml = simplexml_load_string($exec);
+        if (!$xml)
+            return 0;
+
+        return $xml;
+    }
+    public static function findFirstTableInTheString($exec) {
+        $pos1  = strpos($exec, '<table>');
+        $pos2  = strpos($exec, '</table>');
+        $table = substr($exec, $pos1, ($pos2-$pos1+strlen('</table>')));
+        return $table;
+
+    }
+    public static function readForFile($filePath) {
+        $file = fopen($filePath, "r");
+        if (!$file)
+            return 0;
+        $exec = fread($file,filesize($filePath));
+        fclose($file);
+        return $exec;
+    }
     
+    public static function findFirstTableInTheXmlFile($filePath) {
+        $exec = XmlUse::readForFile($filePath);
+        $xml  = XmlUse::findFirstTableInTheString($exec);
+        return $xml;
+    }
 }
 
