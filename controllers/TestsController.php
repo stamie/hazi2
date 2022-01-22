@@ -18,5 +18,24 @@ class TestsController extends \yii\web\Controller
         return $this->render('curltestfilmpage', ['exec' => $exec]);
     }
     
+    public function actionXmlsavetest(){
+        $exec = '<html>
+                    <head>
+                        <title>Test Page</title>
+                    </head>
+                    <body>
+                        Hello Word!
+                    </body>
+                
+                </html>';
+        $filename = 'testsave1';
+        $bool = XmlUse::testSaveFile($filename, $exec);
+        $filename = str_replace('classes/../', '', XmlUse::DIR_XML).$filename.'.xml';
+        if ($bool){
+            return $this->render('xmlsavetest_good', ['filename' => $filename]);
+        } 
+        return $this->render('xmlsavetest_error', ['filename' => $filename]);
+    }
     
 }
+?>
