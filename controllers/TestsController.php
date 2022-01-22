@@ -75,7 +75,7 @@ class TestsController extends \yii\web\Controller
         return $this->render('error');
     }
     public function actionXmlreadtest2(){
-        $filePath = __DIR__."/../testdatas/xmltest1Top250.html";
+        $filePath = __DIR__."/../testdatas/xmltest1Top250.xml";
         $xml = XmlUse::readForFile($filePath);
         if ($xml){
             return $this->render('xmlreadtest_good', ['xml' => $xml]);
@@ -83,7 +83,7 @@ class TestsController extends \yii\web\Controller
         return $this->render('error');
     }
     public function actionFindtable(){
-        $filePath = __DIR__."/../testdatas/xmltest1Top250.html";
+        $filePath = __DIR__."/../testdatas/xmltest1Top250.xml";
         $xml = XmlUse::findFirstTableInTheXmlFile($filePath);
         if ($xml){
             return $this->render('xmlreadtest_good', ['xml' => $xml]);
