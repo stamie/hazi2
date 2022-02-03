@@ -6,7 +6,9 @@ use DomDocument;
 class XmlUse
 {
     const NUMBER_OF_FILMS = 20;
-    const DIR_XML = __DIR__."/../xmls/";
+    const DIR_XML  = __DIR__."/../xmls/";
+    const DIR_JSON = __DIR__."/../json/";
+    
     private static function saveFile($fileName, $exec) {
         if ($fileName && $fileName != ''){
             $myfile = fopen(self::DIR_XML.$fileName.'.xml', "w");
@@ -21,7 +23,7 @@ class XmlUse
     }
     private static function saveJSONFile($fileName, string $exec) {
         if ($fileName && $fileName != ''){
-            $myfile = fopen(self::DIR_XML.$fileName.'.json', "w");
+            $myfile = fopen(self::DIR_JSON.$fileName.'.json', "w");
             if (!$myfile)
                 return 0;
             fwrite($myfile, $exec);
@@ -128,8 +130,24 @@ class XmlUse
             }
             return $tBodyToArray;
         }
+        return 0;
 
     }
+    public static function saveXMLToJSONFile(SimpleXMLElement $xml, $fileName) {
+        if (isset($xml->body) &&
+            isset($xml->body->table) &&
+            isset($xml->body->table->tbody) &&
+            isset($xml->body->table->tbody->tr)
+        ){
+            $XMLToArray = self::saveXMLToArray($xml);
+            if ($XMLToArray) {
+                $json = json_encode($XMLToArray);
+                return self::saveJSONFile($fileName, $json);
+            }
 
+        }
+        return 0;
+
+    }
 }
 

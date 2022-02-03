@@ -111,6 +111,26 @@ class TestsController extends \yii\web\Controller
    
         return $this->render('error');
     }
+
+    public function actionXmlfileprocessing2(){
+        $filePath       = __DIR__."/../testdatas/xmltest1Top250.xml";
+        $fileOutput     = "exampleTable";
+        $exp1            = ".xml";
+        $filePathOutput = XmlUse::DIR_XML . $fileOutput;
+        $table = XmlUse::findFirstTableInTheXmlFile($filePath);// echo($table); 
+        $exec = "<!DOCTYPE html><html><body>$table</body></html>";
+        if (XmlUse::testSaveFile($fileOutput, $exec)) {
+            $html = XmlUse::readForFile($filePathOutput.$exp1);
+            $xml  = XmlUse::read($html);
+            $return = XmlUse::saveXMLToJSONFile($xml, $fileOutput);
+
+            if ($xml){
+                return $this->render('xmlfileprocessing_good', ['xml' => $return]);
+            }
+        }
+   
+        return $this->render('error');
+    }
     public function actionXmlreadtest2(){
         $filePath = __DIR__."/../testdatas/xmltest1Top250.xml";
         $xml = XmlUse::readForFile($filePath);
