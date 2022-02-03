@@ -102,7 +102,7 @@ class TestsController extends \yii\web\Controller
         if (XmlUse::testSaveFile($fileOutput, $exec)) {
             $html = XmlUse::readForFile($filePathOutput.$exp);
             $xml  = XmlUse::read($html);
-            $return = XmlUse::saveXMLToJSONfile($xml);
+            $return = XmlUse::saveXMLToArray($xml);
 
             if ($xml){
                 return $this->render('xmlfileprocessing_good', ['xml' => $return]);

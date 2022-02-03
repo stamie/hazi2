@@ -88,22 +88,45 @@ class XmlUse
         return self::saveFile($filenameOutput, $xml);
     }
 
-    public static function saveXMLToJSONfile(SimpleXMLElement $xml) {
+    public static function processigTr($tr) {
+        $trArray = [];
+        foreach($tr as $td){
+           switch ($td->attributes()["class"]) {
+            case "ratingColumn imdbRating":
+                $string = $td->strong->attributes()['title']->__toString();
+                $string = str_replace(" user ratings", "", $string);
+                $stringToArray = explode(" based on ", $string);
+                $trArray["IMDB"]        = floatval($stringToArray[0]);
+                $trArray["userRatings"] = intval(str_replace(' ', '', $stringToArray[1]));
+                break;
+            case "titleColumn":
+                $trArray["title"] = $td->a->__toString();
+                $trArray["href"]  = $td->a->attributes()['href']->__toString();
+                break;
+           }
+
+        }
+
+        return $trArray;
+    }
+    public static function saveXMLToArray(SimpleXMLElement $xml) {
         if (isset($xml->body) &&
             isset($xml->body->table) &&
             isset($xml->body->table->tbody) &&
             isset($xml->body->table->tbody->tr)
         ){
-            $return = 0;
+            //$return = 0;
             $index = 0;
+            $tBodyToArray = [];
             foreach($xml->body->table->tbody->tr as $tr){
-                $return = 1;
+                $trToArray = self::processigTr($tr); //exit;
+                $tBodyToArray[$index] = $trToArray;
                 $index++;
                 if ($index>=20){
                     break;
                 }
             }
-            return $return;
+            return $tBodyToArray;
         }
 
     }
