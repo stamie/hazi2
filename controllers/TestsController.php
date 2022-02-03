@@ -73,6 +73,43 @@ class TestsController extends \yii\web\Controller
             return $this->render('xmlreadtest_good', ['xml' => $xml]);
         } 
         return $this->render('error');
+    }  
+    public function actionXmlreadtestforfile(){
+        $filePath       = __DIR__."/../testdatas/xmltest1Top250.xml";
+        $fileOutput     = "exampleTable";
+        $exp            = ".xml";
+        $filePathOutput = XmlUse::DIR_XML . $fileOutput;
+        $table = XmlUse::findFirstTableInTheXmlFile($filePath);// echo($table); 
+        $exec = "<!DOCTYPE html><html><body>$table</body></html>";
+        if (XmlUse::testSaveFile($fileOutput, $exec)) {
+            $html = XmlUse::readForFile($filePathOutput.$exp);
+            $xml  = XmlUse::read($html);
+            if ($xml){
+                return $this->render('xmlreadtest_good', ['xml' => $xml]);
+            }
+        }
+   
+        return $this->render('error');
+    }
+
+    public function actionXmlfileprocessing1(){
+        $filePath       = __DIR__."/../testdatas/xmltest1Top250.xml";
+        $fileOutput     = "exampleTable";
+        $exp            = ".xml";
+        $filePathOutput = XmlUse::DIR_XML . $fileOutput;
+        $table = XmlUse::findFirstTableInTheXmlFile($filePath);// echo($table); 
+        $exec = "<!DOCTYPE html><html><body>$table</body></html>";
+        if (XmlUse::testSaveFile($fileOutput, $exec)) {
+            $html = XmlUse::readForFile($filePathOutput.$exp);
+            $xml  = XmlUse::read($html);
+            $return = XmlUse::saveXMLToJSONfile($xml);
+
+            if ($xml){
+                return $this->render('xmlfileprocessing_good', ['xml' => $return]);
+            }
+        }
+   
+        return $this->render('error');
     }
     public function actionXmlreadtest2(){
         $filePath = __DIR__."/../testdatas/xmltest1Top250.xml";
@@ -82,6 +119,15 @@ class TestsController extends \yii\web\Controller
         } 
         return $this->render('error');
     }
+    public function actionFindandsavetable(){
+        $filePath = __DIR__."/../testdatas/xmltest1Top250.xml";
+        $xml = XmlUse::findFirstTableInTheXmlFile($filePath);
+        if ($xml){
+            return $this->render('xmlreadtest_good', ['xml' => $xml]);
+        } 
+        return $this->render('error');
+    }
+
     public function actionFindtable(){
         $filePath = __DIR__."/../testdatas/xmltest1Top250.xml";
         $xml = XmlUse::findFirstTableInTheXmlFile($filePath);
