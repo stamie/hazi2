@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 use app\classes\CurlTop20;
+use app\classes\JsonProcess;
 use app\classes\XmlUse;
 
 class TestsController extends \yii\web\Controller
@@ -42,8 +43,7 @@ class TestsController extends \yii\web\Controller
                     <head>
                         <title>Test Page</title>
                     </head>
-                    <body>
-                        
+                    <body>                        
                         <p>Its a good xml!</p>
                         <table>
                         <tr>
@@ -131,6 +131,17 @@ class TestsController extends \yii\web\Controller
    
         return $this->render('error');
     }
+
+    public function actionJsonprocessingpenalizer() {
+        $fileNameInput  = __DIR__.'/../json/exampleTable.json'; 
+        $fileNameOutput = 'exampleTable2';
+        $bool = JsonProcess::processingJSONFileForPenalizer($fileNameInput, $fileNameOutput);
+        if ($bool == 1){
+            return $this->render('jsonprocessing_good', ['xml' => $bool]);
+        }
+        return $this->render('error');
+    }
+
     public function actionXmlreadtest2(){
         $filePath = __DIR__."/../testdatas/xmltest1Top250.xml";
         $xml = XmlUse::readForFile($filePath);
