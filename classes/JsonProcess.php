@@ -6,7 +6,7 @@ use app\classes\XmlUse;
 class JsonProcess extends RootClass
 {
     const RAITING_DIV    = 100000;
-    const POINT_DIV      = -0.1;
+    const POINT_DIV      = 10;
     const OSCAR_REWARDS  = [1 => 0.3, 2 => 0.3, 3 => 0.5, 4 => 0.5, 5 => 0.5, 6 => 1, 7 => 1, 8 => 1, 9 => 1, 10 => 1, 11 => 1.5];
     
     protected static function saveFile($fileName, $exec) {
@@ -44,8 +44,8 @@ class JsonProcess extends RootClass
         foreach ($arrayForJson as $key => $rowJson) {
             if (intval($rowJson->userRatings)<$maxUserRaitings) {
                 $div = $maxUserRaitings - intval($rowJson->userRatings);
-                $div = intdiv($div,  self::RAITING_DIV)*self::POINT_DIV;
-                $arrayForJson[$key]->newOwnRaiting = $rowJson->IMDB+$div;
+                $div = intdiv($div,  self::RAITING_DIV)/self::POINT_DIV;
+                $arrayForJson[$key]->newOwnRaiting = number_format($rowJson->IMDB-$div, 1);
             }
         }
         $json = json_encode($arrayForJson);

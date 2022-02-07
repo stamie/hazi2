@@ -4,6 +4,7 @@ namespace app\classes;
 use SimpleXMLElement;
 use DomDocument;
 use app\classes\RootClass;
+use app\classes\CurlTop20;
 class XmlUse extends RootClass
 {
     const NUMBER_OF_FILMS = 20;
@@ -34,6 +35,7 @@ class XmlUse extends RootClass
     public static function read($exec) { 
         $html = preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $exec);
         $html = str_replace('&nbsp;', '', $html);
+        $html = str_replace(',', '', $html);
         $dom = new DOMDocument;
         $dom->loadHTML($html);
         if (!$dom) {
@@ -68,6 +70,18 @@ class XmlUse extends RootClass
         return self::saveFile($filenameOutput, $xml);
     }
 
+    private static function getOscar($href) {
+        $oscarNumber = 0;
+        $html        = CurlTop20::loadMovie($href);
+        $pattern     = '/Won [\d]+ Oscar/';
+        preg_match($pattern, $html, $matches, PREG_OFFSET_CAPTURE); 
+        if (is_array($matches) && count($matches) > 0 && isset($matches[0]) && isset($matches[0][0])){ 
+            $oscarNumber = $matches[0][0];
+            $oscarNumber = str_replace(['Won ', ' Oscar'], '',$oscarNumber);
+            $oscarNumber = intval($oscarNumber);
+        }
+        return $oscarNumber;
+    }
     public static function processigTr($tr) {
         $trArray = [];
         foreach($tr as $td){
@@ -82,6 +96,8 @@ class XmlUse extends RootClass
             case "titleColumn":
                 $trArray["title"] = $td->a->__toString();
                 $trArray["href"]  = $td->a->attributes()['href']->__toString();
+                $trArray["Oscar"] = self::getOscar($trArray["href"]);
+                
                 break;
            }
 
