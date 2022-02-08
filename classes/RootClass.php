@@ -19,7 +19,7 @@ class RootClass
     }
 
 
-    public static function readForFile($filePath) {
+    public static function readForFile($filePath) { //file olvasás
         $file = fopen($filePath, "r");
         if (!$file)
             return 0;
