@@ -6,34 +6,23 @@
     <br>
 </p>
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
-
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
-
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![build](https://github.com/yiisoft/yii2-app-basic/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-basic/actions?query=workflow%3Abuild)
-
-DIRECTORY STRUCTURE
--------------------
-
-      assets/             contains assets definition
-      commands/           contains console commands (controllers)
-      config/             contains application configurations
-      controllers/        contains Web controller classes
-      mail/               contains view files for e-mails
-      models/             contains model classes
-      runtime/            contains files generated during runtime
-      tests/              contains various tests for the basic application
-      vendor/             contains dependent 3rd-party packages
-      views/              contains view files for the Web application
-      web/                contains the entry script and Web resources
-
-
-
-REQUIREMENTS
+Installálás
 ------------
+
+A README.md-ben mindent megtalál a Yii2 telepítéséről.
+
+Használat
+---------
+Telepítés után, bejelentjkezik a kezdő képernyő, s vele együtt a menü is.
+
+# My Application és a Home, mindig a kezdő képernyőre mutatnak.
+# Scrapperel, csak le lehet szedni, és menteni lehet az adatokat, json fileba.
+## Elérési útvonala és neve: ~/json/Table.json
+# Penalizer, a második feladat, amely a büntető pontozást hajtja végre, s json-ba menti az adatokat.
+## Elérési útvonal: ~/json/Table_2.json
+# Oscar, a díjazása az Oscart szerzett filmeknek, attól függően, hogy hány Oscar díjat kaptak. Mentés, itt is json-ban történik.
+## Elérési útvonal: ~/json/Table_2.json
+
+Üdv: Stampel Emese (Ágota)
+
 

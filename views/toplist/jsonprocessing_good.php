@@ -11,6 +11,7 @@ $this->title = 'My Yii Application';
     </div>
 
     <div class="body-content">
+        The sucess was right.
         <?php var_dump($xml); ?>
         
     </div>

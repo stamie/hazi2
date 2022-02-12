@@ -6,10 +6,6 @@ use app\classes\XmlUse;
 use app\classes\JsonProcess;
 class ToplistController extends \yii\web\Controller
 {
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
     public function actionScrapper() //Adatok lekérése (JSON-ba)
     {
         $exec = CurlTop20::loadTop250page();
@@ -30,11 +26,9 @@ class ToplistController extends \yii\web\Controller
                 $html = XmlUse::readForFile($filePathInput.$exp1); 
                 $xml  = XmlUse::read($html);
                 $return = XmlUse::saveXMLToJSONFile($xml, $fileOutput); //Json formátumba menti el
-                if ($return){
-                    $bool = JsonProcess::processingJSONFileForPenalizer($JsonFileNameInput, $JsonFileNameOutput);
-                    if ($bool == 1){
-                        return $this->render('jsonprocessing_good', ['xml' => $bool]);
-                    }
+                $bool = $return;
+                if ($bool == 1){
+                    return $this->render('jsonprocessing_good', ['xml' => $bool]);
                 }
             }
         }
