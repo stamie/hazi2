@@ -7,12 +7,11 @@ $this->title = 'My Yii Application';
 <div class="site-index">
 
     <div class="jumbotron text-center bg-transparent">
-        <h1 class="display-4">Sorry!</h1>
-      
+        <h1 class="display-4">Sorry, this is error page!</h1>
     </div>
-
     <div class="body-content">
-        You didn't do the controller!
-        
+        Please, fix it!<br>
+        Is file: <?=$filename ?>
+
     </div>
 </div>

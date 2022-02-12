@@ -1,27 +1,19 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $name string */
-/* @var $message string */
-/* @var $exception Exception */
 
-use yii\helpers\Html;
-
-$this->title = $name;
+$this->title = 'My Yii Application';
 ?>
-<div class="site-error">
+<div class="site-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
+    <div class="jumbotron text-center bg-transparent">
+        <h1 class="display-4">Sorry!</h1>
+      
     </div>
 
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
-
+    <div class="body-content">
+        You didn't do the controller!
+        
+    </div>
 </div>
+
